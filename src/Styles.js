@@ -14,3 +14,11 @@ export const header = theme => ({
       }
 
 })
+
+export const checkIn = theme => ({
+
+  mains:{
+    marginTop:theme.spacing(20)
+  }
+
+})

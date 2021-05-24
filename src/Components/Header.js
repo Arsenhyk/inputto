@@ -21,9 +21,9 @@ class Header extends Component{
         const { classes } = this.props;
 
         return (
-            <AppBar position="fixed">
+            <AppBar>
 
-                <Container fixed>
+                <Container>
 
                     <Toolbar>   
 
