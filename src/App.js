@@ -6,10 +6,6 @@ import CheckIn  from './Components/CheckIn.js'
 
 
 
-
-
-
-
 class App extends Component {
 
   render() {

@@ -21,7 +21,10 @@ class Header extends Component{
         const { classes } = this.props;
 
         return (
-            <AppBar>
+
+            <div className="root">
+
+            <AppBar position="static"> 
 
                 <Container>
 
@@ -59,6 +62,8 @@ class Header extends Component{
 
                 
             </AppBar>
+
+            </div>
         )
     }
 
