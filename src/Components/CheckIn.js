@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+import { Stepper, Step, StepLabel } from '@material-ui/core';
+import{ Button, Typography, StepConnector }from '@material-ui/core';
 
 //icon
 import Check from '@material-ui/icons/Check';
@@ -12,9 +11,13 @@ import person from '../image/person.svg'
 import personAdd from '../image/personAdd.svg'
 import personCheck from '../image/personCheck.svg'
 
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import StepConnector from '@material-ui/core/StepConnector';
+import FormOne from '../Components/FormOne'
+import FormTwo from '../Components/FormTwo'
+
+
+/* import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup'; */
+
 
 
 // линия прогреса 
@@ -134,9 +137,9 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return 'Select campaign settings...';
+      return < FormOne /> ;
     case 1:
-      return 'What is an ad group anyways?';
+      return < FormTwo />;
     case 2:
       return 'This is the bit I really care about!';
     default:
@@ -146,7 +149,7 @@ function getStepContent(step) {
 
 export default function CheckIn() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
   const handleNext = () => {
@@ -185,7 +188,15 @@ export default function CheckIn() {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+            <Typography className={classes.instructions}>
+ 
+              
+                {getStepContent(activeStep)}
+
+              
+              
+            </Typography>
+
             <div>
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                 Back
@@ -205,4 +216,6 @@ export default function CheckIn() {
     </div>
   );
 }
+
+   
 
