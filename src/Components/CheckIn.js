@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
-import{ Button, Typography, StepConnector }from '@material-ui/core';
+import{ Button, Typography, StepConnector, Box, }from '@material-ui/core';
 
 //icon
 import Check from '@material-ui/icons/Check';
@@ -15,12 +15,8 @@ import FormOne from '../Components/FormOne'
 import FormTwo from '../Components/FormTwo'
 
 
-/* import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup'; */
 
-
-
-// линия прогреса 
+// линия прогреса style
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 23,
@@ -64,6 +60,13 @@ const useColorlibStepIconStyles = makeStyles({
   completed: {
     backgroundColor: '#4CAF50'
   },
+
+  textCheck: {
+    fontWeight: '300',
+    fontSize: '30px',
+    lineHeight: '35px', 
+    margin: '20px',
+  }
 });
 
 // icon
@@ -114,6 +117,8 @@ ColorlibStepIcon.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    margin: 0,
+    padding: 0,
   },
   button: {
     marginRight: theme.spacing(1),
@@ -167,7 +172,9 @@ export default function CheckIn() {
   return (
     <div className={classes.root}>
 
-      <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+      <h1 className={classes.textCheck}>Регестрация</h1>
+
+      <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} style={{ backgroundColor: '#FAFAFA '}}>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
@@ -189,27 +196,36 @@ export default function CheckIn() {
         ) : (
           <div>
             <Typography className={classes.instructions}>
- 
+
+            <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+
+              <main /* className={classes.mains} */>
               
                 {getStepContent(activeStep)}
+
+                  <div>
+                    <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                        Back
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    </Button>
+                  </div> 
+
+              </main>
+
+            </Box>
 
               
               
             </Typography>
 
-            <div>
-              <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-              >
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-              </Button>
-            </div>
+            
           </div>
         )}
       </div>

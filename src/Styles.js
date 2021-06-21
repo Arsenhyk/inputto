@@ -34,4 +34,32 @@ export const useStyles = theme => ({
   },
 });
 
+export const formStyle = (theme) => ({
+  rootForm: {
+    backgroundColor: '#FFFFFF',
+    width: '818px',
+    height: '604px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 0,
+    padding: 0,
+    marginTop: theme.spacing(4),
+
+  },
+
+  forms:{
+    
+    marginTop: theme.spacing(4),
+
+  },
+
+  textForm:{
+    width: '360px',
+    height: '56px',
+    marginTop: theme.spacing(2),
+  }
+ 
+});
+
 
