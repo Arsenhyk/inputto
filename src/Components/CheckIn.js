@@ -61,12 +61,7 @@ const useColorlibStepIconStyles = makeStyles({
     backgroundColor: '#4CAF50'
   },
 
-  textCheck: {
-    fontWeight: '300',
-    fontSize: '30px',
-    lineHeight: '35px', 
-    margin: '20px',
-  }
+  
 });
 
 // icon
@@ -127,6 +122,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  textCheck: {
+    fontWeight: '300',
+    fontSize: '30px',
+    lineHeight: '35px', 
+    margin: '20px',
+  }
 }));
 
 
