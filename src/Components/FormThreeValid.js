@@ -5,7 +5,24 @@ import { Form } from "../Components/FormThree";
 import Paper from "@material-ui/core/Paper";
 import * as Yup from 'yup';
 
-/*  */
+
+const validationSchema = Yup.object().shape({
+    name: Yup.string("Enter a name")
+    .required("Name is required"),
+
+    email: Yup.string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+
+    password: Yup.string("")
+    .min(8, "Password must contain at least 8 characters")
+    .required("Enter your password"),
+
+    confirmPassword: Yup.string("Enter your password")
+    .required("Confirm your password")
+    .oneOf
+    ([Yup.ref("password")],"Password does not match"),
+  }); 
 
 const styles = theme => ({
  paper: {
@@ -27,7 +44,7 @@ class InputForm extends Component {
    this.state = {};
  }
 
- 
+
 
  render() {
     const classes = this.props;
@@ -35,11 +52,13 @@ class InputForm extends Component {
   return (
      <React.Fragment>
           <div className={classes.container}>
-         <Paper elevation={1} className={classes.paper}>
-           <h1>Form</h1>
-           <Formik
-             render={props => <Form {...props} />}
-           />
+        <Paper elevation={1} className={classes.paper}>
+        <h1>Form</h1>
+        <Formik
+            render={props => <Form {...props} />}
+            initialValues={values}
+            validationSchema={validationSchema}
+        />
          </Paper>
        </div>
      </React.Fragment>
