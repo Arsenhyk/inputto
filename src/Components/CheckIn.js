@@ -13,6 +13,7 @@ import personCheck from '../image/personCheck.svg'
 
 import FormOne from '../Components/FormOne'
 import FormTwo from '../Components/FormTwo'
+import FormThree from '../Components/FormThree'
 
 
 
@@ -147,7 +148,7 @@ function getStepContent(step) {
     case 1:
       return < FormTwo />;
     case 2:
-      return 'This is the bit I really care about!';
+      return < FormThree />;
     default:
       return 'Unknown step';
   }

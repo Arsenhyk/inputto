@@ -1,52 +1,82 @@
 import React from 'react';
- import { Formik, Form, Field } from 'formik';
- import * as Yup from 'yup';
+ import { Formik, Form, Field, ErrorMessage } from 'formik';
+ import * as Yup from "yup";
+ import TextField from '@material-ui/core/TextField';
+ import InputAdornment from '@material-ui/core/InputAdornment';
+ import { withStyles } from '@material-ui/core/styles';
+ import {formStyle as styles} from '../Styles';
 
-
-const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
-    lastName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
-    email: Yup.string().email('Invalid email').required('Required'),
-  });
+ const SignupSchema = Yup.object().shape({
+   name: Yup.string()
+     .min(2, 'Too Short!')
+     .max(70, 'Too Long!')
+     .required('Required'),
+   email: Yup.string()
+     .email('Invalid email')
+     .required('Required'),
+ });
+ 
+ function FormTwo(styles) {
   
-  export  const FormTwo = () => (
-    <div>
-      <h1>Signup</h1>
-      <Formik
+  const { classes } = styles;
+
+  return(
+   <div className={classes.rootForm}>
+
+     <h1>Signup</h1>
+     
+     <Formik
+        
         initialValues={{
           firstName: '',
-          lastName: '',
           email: '',
-        }}
-        validationSchema={SignupSchema}
-        onSubmit={values => {
-          // same shape as initial values
-          console.log(values);
-        }}
-      >
-        {({ errors, touched }) => (
-          <Form>
-            <Field name="city" />
+       }}
+       validationSchema={SignupSchema}
+       onSubmit={values => {
+         // same shape as initial values
+         console.log(values);
+       }}
+     >
+
+       {({ errors, touched }) => (
+         <Form className= {classes.forms}>
+           <Field className={classes.textForm} type="text" name="firstName" label="Имя" variant="filled"  />
             {errors.firstName && touched.firstName ? (
-              <div>{errors.firstName}</div>
+             <div>{errors.firstName}</div>
             ) : null}
-            <Field name="sex" />
-            {errors.lastName && touched.lastName ? (
-              <div>{errors.lastName}</div>
+            <ErrorMessage name="firstName" />
+
+            <TextField
+                className={classes.textForm} 
+                name="email" 
+                type="email" 
+                label="Email" 
+                variant="filled"
+                InputProps={{
+                endAdornment:(<InputAdornment position="end">@gmail.com</InputAdornment>)
+                }}
+                />
+                {errors.email && touched.email ? <div>{errors.email}</div> : null}
+              <ErrorMessage name="email" />
+
+            <Field name="name"  />
+            {errors.name && touched.name ? (
+            <div>{errors.name}</div>
             ) : null}
-            <Field name="pasword" type="pasword" />
-            {errors.email && touched.email ? <div>{errors.email}</div> : null}
-            <button type="submit">Submit</button>
+            <ErrorMessage name="name" />
+
+            <Field name="email" type="email" />
+            {errors.email && touched.email ? (
+             <div>{errors.email}</div>
+            ) : null}
+            <ErrorMessage name="email" />
+              
           </Form>
-        )}
-      </Formik>
-    </div>
-  );
-      
-  export default (FormTwo)
+       )}
+
+     </Formik>
+
+   </div>
+)
+}
+export default withStyles (styles) (FormTwo);

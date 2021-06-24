@@ -58,8 +58,15 @@ export const formStyle = (theme) => ({
     width: '360px',
     height: '56px',
     marginTop: theme.spacing(2),
-  }
+  },
+
+  margin: {
+    margin: theme.spacing(1),
+  },
+  
+  textField: {
+    width: '25ch',
+  },
  
 });
-
 

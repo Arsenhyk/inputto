@@ -1,17 +1,20 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import TextField from '@material-ui/core/TextField';
-
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import{ Grid }from '@material-ui/core';
+import FilledInput from '@material-ui/core/FilledInput';
+import FormControl from '@material-ui/core/FormControl';
 
 import imgOne from '../image/imgOne.png'
 
 import {formStyle as styles} from '../Styles';
-
-
-
 
 
 const SignupSchema = Yup.object().shape({
@@ -48,10 +51,31 @@ const SignupSchema = Yup.object().shape({
     .matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]$")
     .required(),
   });
+
   
-  class FormOne extends Component{
-    render(){
-      const { classes } = this.props;
+  function FormOne(styles) {
+    
+      const { classes } = styles;
+
+      const [values, setValues] = useState({
+        amount: '',
+        password: '',
+        weight: '',
+        weightRange: '',
+        showPassword: false,
+      });
+    
+      const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+      };
+    
+      const handleClickShowPassword = () => {
+        setValues({ ...values, showPassword: !values.showPassword });
+      };
+    
+      const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+      };
 
       return (
 
@@ -86,27 +110,78 @@ const SignupSchema = Yup.object().shape({
             }}
           >
             {({ errors, touched }) => (
-              <Form className={classes.forms} >
-                <TextField className={classes.textForm} type="text" name="firstName" placeholder="Имя" variant="filled"/>
+              <Form className= {classes.forms}>
+                <TextField className={clsx( classes.textForm )} type="text" name="firstName" label="Имя" variant="filled"/>
+                
                 {errors.firstName && touched.firstName ? (
                   <div>{errors.firstName}</div>
                 ) : null}
 
-                <TextField className={classes.textForm} type="text" name="lastName" placeholder="Фамилия"  variant="filled"/>
+                <TextField className={classes.textForm} type="text" name="lastName" label="Фамилия"  variant="filled"/>
                 {errors.lastName && touched.lastName ? (
                   <div>{errors.lastName}</div>
                 ) : null}
 
-                <TextField className={classes.textForm} name="login" type="text" placeholder="Логин" variant="filled"/>
+                <TextField className={classes.textForm} name="login" type="text" label="Логин" variant="filled"/>
                 {errors.login && touched.login ? <div>{errors.login}</div> : null}
 
-                <TextField className={classes.textForm} name="email" type="email" placeholder="Email" variant="filled"/>
+                <TextField className={classes.textForm} 
+                name="email" 
+                type="email" 
+                label="Email" 
+                variant="filled"
+                InputProps={{
+                endAdornment:(<InputAdornment position="end">@gmail.com</InputAdornment>)
+                }}
+                />
                 {errors.email && touched.email ? <div>{errors.email}</div> : null}
 
-                <TextField className={classes.textForm} type="password" name="password" placeholder="Пароль" id="txtNewPassword" variant="filled"/>
+                <TextField className={classes.textForm}  
+                name="password" 
+                label="Пароль"
+                id="txtPassword" 
+                variant="filled"
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange('password')} 
+                InputProps={{
+                    endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                    >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                    )}} 
+                    />
                 {errors.password && touched.password ? <div>{errors.password}</div> : null}
 
-                <TextField className={classes.textForm} type="password" name="rPassword" placeholder="Повторный пароль" id="txtConfirmPassword" onChange="isPasswordMatch();" variant="filled" />
+                <TextField className={classes.textForm}  
+                name="rPassword" 
+                label="Повторите пароль"
+                id="txtConfirmPassword"  
+                variant="filled"
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange('isPasswordMatch()')} 
+                InputProps={{
+                    endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                    >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                    )}} 
+                />
                 {errors.rPassword && touched.rPassword ? <div>{errors.rPassword}</div> : null}
 
               </Form>
@@ -115,6 +190,6 @@ const SignupSchema = Yup.object().shape({
         </Grid>
       
     </div>
-    )}}
+    )}
 
     export default withStyles (styles) (FormOne);
