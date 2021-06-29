@@ -11,9 +11,9 @@ import person from '../image/person.svg'
 import personAdd from '../image/personAdd.svg'
 import personCheck from '../image/personCheck.svg'
 
-import FormOne from '../Components/FormOne'
-import FormTwo from '../Components/FormTwo'
-import FormThreeValid from '../Components/FormThreeValid'
+import FormOne from './FormValid/FormOne'
+import FormTwo from './FormValid/FormTwo'
+import FormThreeValid from './FormValid/FormThreeValid'
 
 
 

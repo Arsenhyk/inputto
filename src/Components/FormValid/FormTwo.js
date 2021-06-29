@@ -4,7 +4,7 @@ import React from 'react';
  import TextField from '@material-ui/core/TextField';
  import InputAdornment from '@material-ui/core/InputAdornment';
  import { withStyles } from '@material-ui/core/styles';
- import {formStyle as styles} from '../Styles';
+ import {formStyle as styles} from '../../Styles';
 
  const SignupSchema = Yup.object().shape({
    name: Yup.string()
