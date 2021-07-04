@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form} from 'formik';
 import * as Yup from 'yup';
-import TextField from '@material-ui/core/TextField';
+
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -9,245 +9,46 @@ import IconButton from '@material-ui/core/IconButton';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import{ Grid }from '@material-ui/core';
-import FilledInput from '@material-ui/core/FilledInput';
-import FormControl from '@material-ui/core/FormControl';
+
 
 import imgOne from '../../image/imgOne.png'
 
 import {formStyle as styles} from '../../Styles';
 
+import { FormikTextField } from 'formik-material-fields';
 
+import errorIcon from '../../image/error.svg';
 
-
-/* 
-
-
-export  const FormOne = (props, styles) => {
-
-const { classes } = styles;
-
-const [values, setValues] = useState({
-  amount: '',
-  password: '',
-  weight: '',
-  weightRange: '',
-  showPassword: false,
-});
-
-const handleChanges = (prop) => (event) => {
-  setValues({ ...values, [prop]: event.target.value });
-};
-
-const handleClickShowPassword = () => {
-  setValues({ ...values, showPassword: !values.showPassword });
-};
-
-const handleMouseDownPassword = (event) => {
-  event.preventDefault();
-};
-  
-  const {
-    values: { 
-      firstName,
-      lastName,
-      login,
-      email,
-      password,
-      rPassword},
-    errors,
-    touched,
-    handleChange,
-    setFieldTouched
-  } = props;
-
-  const change = (name, e) => {
-    e.persist();
-    handleChange(e);
-    setFieldTouched(name, true, false);
-  };
-
-  return (
-    
-
-
-
-<div className={classes.rootForm}>
-
-  
-
-    <Grid item md={2}>
-
-      <div>
-
-        <img src = { imgOne }  alt = "imgOne"/>,
-      
-      </div>
-
-    </Grid>
-
-    <Grid item md={6}>
-      
-    <form
-      className= {classes.forms}
-      onSubmit={() => {
-        alert("submitted");
-      }}
-    >
-          
-            <TextField 
-              id="firstName"
-              name="firstName"
-              helperText={touched.firstName ? errors.firstName : ""}
-              error={touched.firstName && Boolean(errors.firstName)}
-              className={classes.textForm}               
-              value={firstName}
-              onChange={change.bind(null, "firstName")} 
-              type="text"
-              label="Имя" 
-              variant="filled"
-            />                        
-
-            <TextField 
-              id="lastName"
-              name="lastName"
-              className={classes.textForm}
-              helperText={touched.lastName ? errors.lastName : ""}
-              error={touched.lastName && Boolean(errors.lastName)}
-              value={lastName}
-              onChange={change.bind(null, "lastName")} 
-              type="text"    
-              label="Фамилия"  
-              variant="filled"
-            />
-            
-
-            <TextField
-              id="login"
-              className={classes.textForm}
-              helperText={touched.login ? errors.login : ""}
-              error={touched.login && Boolean(errors.login)}
-              value={login}
-              onChange={change.bind(null, "login")} 
-              name="login" 
-              type="text" 
-              label="Логин" 
-              variant="filled"
-            />
-            
-
-            <TextField 
-              id="email"
-              className={classes.textForm}
-              helperText={touched.email ? errors.email : ""}
-              error={touched.email && Boolean(errors.email)}
-              value={email}
-              onChange={change.bind(null, "email")}
-              name="email" 
-              type="email" 
-              label="Email" 
-              variant="filled"
-              InputProps={{
-              endAdornment:(<InputAdornment position="end">@gmail.com</InputAdornment>)
-              }}
-            />
-            
-
-            <TextField 
-              id="password"
-              className={classes.textForm}
-              helperText={touched.password ? errors.password : ""}
-              error={touched.password && Boolean(errors.password)}
-              value={password}
-              onChange={change.bind.handleChanges(null, "password")}  
-              name="password" 
-              label="Пароль" 
-              variant="filled"
-              type={values.showPassword ? 'text' : 'password'}
-              
-              InputProps={{
-                  endAdornment: (
-                  <InputAdornment position="end">
-                      <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                  >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                  </InputAdornment>
-                  )}} 
-            />
-            
-
-            <TextField 
-            id="rPassword"
-            className={classes.textForm}
-            helperText={touched.rPassword ? errors.rPassword : ""}
-            error={touched.rPassword && Boolean(errors.rPassword)}
-            value={rPassword}
-            onChange={change.bind.handleChanges(null, "rPassword")} 
-            name="rPassword" 
-            label="Повторите пароль" 
-            variant="filled"
-            type={values.showPassword ? 'text' : 'password'}
-            InputProps={{
-                endAdornment: (
-                <InputAdornment position="end">
-                    <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                >
-                {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                </InputAdornment>
-                )}} 
-            />
-            {errors.rPassword && touched.rPassword ? <div>{errors.rPassword}</div> : null}
-
-            </form>
-
-    </Grid>
-  
-</div>   
-
-  )}
-*/
-  
 
  const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+    firstName: Yup.string("Enter a name")
+      .min(2, ' Enter a valid name ')
+      .max(50, ' Enter a valid name ')
+      .required(' Required '),
 
     lastName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .min(2, ' Enter a valid last name ')
+      .max(50, ' Enter a valid last name! ')
+      .required(' Required '),
 
     login: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .min(2, ' Too Short! ')
+      .max(50, ' Too Long! ')
+      .required(' Required '),
 
     email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
+    .email(' Invalid email ')
+    .required(' Required '),
 
     password: Yup
     .string()
-    .min(8)
-    .max(16)
+    .min(8,' At least 8 characters! ')
     .matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]$")
     .required(),
 
     rPassword: Yup
     .string()
-    .min(8)
-    .max(16)
+    .min(8,' At least 8 characters! ')
     .matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]$")
     .required(),
   }); 
@@ -279,21 +80,22 @@ const handleMouseDownPassword = (event) => {
 
       return (
 
-    <div className={classes.rootForm}>
+    
 
-      
+      <div className= {classes.root}>
 
-        <Grid item md={2}>
+        <Grid item md={8}>
 
           <div>
 
-            <img src = { imgOne }  alt = "imgOne"/>,
+            <img src = { imgOne }  alt = "imgOne"/>
           
           </div>
 
         </Grid>
 
-        <Grid item md={6}>
+        {/* <Grid item md={6} height={100}> */}
+        <div className= {classes.container}>
           <Formik
             initialValues={{
               firstName: '',
@@ -311,21 +113,57 @@ const handleMouseDownPassword = (event) => {
           >
             {({ errors, touched }) => (
               <Form className= {classes.forms}>
-                <TextField className={clsx( classes.textForm )} type="text" name="firstName" label="Имя" variant="filled"/>
+                <FormikTextField 
+                className={clsx( classes.textForm )} 
+                type="text" 
+                name="firstName" 
+                label="Имя" 
+                variant="filled"
                 
-                {errors.firstName && touched.firstName ? (
-                  <div>{errors.firstName}</div>
+                />
+                
+                {errors.firstName &&  touched.firstName ? (
+                     <div>
+                        <InputAdornment 
+                          position="end">
+                          <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                        </InputAdornment>
+                      </div> 
                 ) : null}
 
-                <TextField className={classes.textForm} type="text" name="lastName" label="Фамилия"  variant="filled"/>
+                <FormikTextField 
+                className={classes.textForm} 
+                type="text" 
+                name="lastName" 
+                label="Фамилия"  
+                variant="filled"
+                />
                 {errors.lastName && touched.lastName ? (
-                  <div>{errors.lastName}</div>
+                  <div>
+                    <InputAdornment 
+                      position="end">
+                      <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                    </InputAdornment>
+                  </div>
                 ) : null}
 
-                <TextField className={classes.textForm} name="login" type="text" label="Логин" variant="filled"/>
-                {errors.login && touched.login ? <div>{errors.login}</div> : null}
+                <FormikTextField 
+                className={classes.textForm} 
+                name="login" 
+                type="text" 
+                label="Логин" 
+                variant="filled"
+                />
+                {errors.login && touched.login ? 
+                <div>
+                  <InputAdornment 
+                    position="end">
+                    <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                  </InputAdornment>
+                </div>
+                : null}
 
-                <TextField className={classes.textForm} 
+                <FormikTextField className={classes.textForm} 
                 name="email" 
                 type="email" 
                 label="Email" 
@@ -334,17 +172,26 @@ const handleMouseDownPassword = (event) => {
                 endAdornment:(<InputAdornment position="end">@gmail.com</InputAdornment>)
                 }}
                 />
-                {errors.email && touched.email ? <div>{errors.email}</div> : null}
+                {errors.email && touched.email ? 
+                <div>
+                  <InputAdornment 
+                    position="end">
+                    <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                  </InputAdornment>
+                </div> 
+                : null}
 
-                <TextField className={classes.textForm}  
+                <FormikTextField className={classes.textForm}  
                 name="password" 
                 label="Пароль"
                 id="txtPassword" 
                 variant="filled"
+                /* helperText="Some important text" */
                 type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
                 onChange={handleChange('password')} 
-                InputProps={{
+                InputProps={                 
+                  {
                     endAdornment: (
                     <InputAdornment position="end">
                         <IconButton
@@ -356,11 +203,20 @@ const handleMouseDownPassword = (event) => {
                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                     </InputAdornment>
-                    )}} 
-                    />
-                {errors.password && touched.password ? <div>{errors.password}</div> : null}
+                    )
+                  }
+                } 
+                />
+                {errors.password && touched.password ? 
+                <div>
+                  <InputAdornment 
+                    position="end">
+                    <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                  </InputAdornment>
+                </div> 
+                : null}
 
-                <TextField className={classes.textForm}  
+                <FormikTextField className={classes.textForm}  
                 name="rPassword" 
                 label="Повторите пароль"
                 id="txtConfirmPassword"  
@@ -382,14 +238,21 @@ const handleMouseDownPassword = (event) => {
                     </InputAdornment>
                     )}} 
                 />
-                {errors.rPassword && touched.rPassword ? <div>{errors.rPassword}</div> : null}
+                {errors.rPassword && touched.rPassword ? 
+                <div>
+                  <InputAdornment 
+                    position="end">
+                    <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                  </InputAdornment>
+                </div> 
+                : null}
 
               </Form>
             )}
           </Formik>
-        </Grid>
-      
-    </div>
+        {/* </Grid> */}
+        </div>
+      </div>
     )} 
 
     export default withStyles(styles) (FormOne); 

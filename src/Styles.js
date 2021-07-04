@@ -25,16 +25,7 @@ export const useStyles = theme => ({
   root: {
     width: '100%',
   },
-  button: {
-    marginRight: theme.spacing(1),
-  },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-});
 
-export const formStyle = (theme) => ({
   rootForm: {
     backgroundColor: '#FFFFFF',
     width: '818px',
@@ -48,25 +39,59 @@ export const formStyle = (theme) => ({
 
   },
 
+  button: {
+    marginRight: theme.spacing(3),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+});
+
+export const formStyle = (theme) => ({
+  
+
   forms:{
     
     marginTop: theme.spacing(4),
 
   },
 
+  root: {
+    
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: '500px',
+
+  },
+
+  container: {
+
+    height: '500px',
+    marginLeft: theme.spacing(4),
+  },
+
   textForm:{
     width: '360px',
     height: '56px',
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
 
   margin: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
   },
   
   textField: {
     width: '25ch',
   },
+
+  errorIcons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(40),
+  }
  
 });
 

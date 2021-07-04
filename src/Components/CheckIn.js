@@ -11,6 +11,7 @@ import person from '../image/person.svg'
 import personAdd from '../image/personAdd.svg'
 import personCheck from '../image/personCheck.svg'
 
+import {useStyles as styles} from '../Styles';
 import FormOne from './FormValid/FormOne'
 import FormTwo from './FormValid/FormTwo'
 import FormThreeValid from './FormValid/FormThreeValid'
@@ -116,8 +117,19 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: 0,
   },
+
+  buttonRoot:{
+    
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems:'flex-end',
+    marginRight: theme.spacing(5),
+    marginBottom: theme.spacing(2),
+  },
+
   button: {
     marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   instructions: {
     marginTop: theme.spacing(1),
@@ -128,7 +140,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '30px',
     lineHeight: '35px', 
     margin: '20px',
-  }
+  },
+
+  rootForm: {
+    backgroundColor: '#FFFFFF',
+    width: '818px',
+    height: '604px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    margin: 0,
+    padding: 0,
+    marginTop: theme.spacing(2),
+
+  },
 }));
 
 
@@ -154,7 +179,8 @@ function getStepContent(step) {
   }
 }
 
-export default function CheckIn() {
+
+function CheckIn() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -199,27 +225,33 @@ export default function CheckIn() {
           <div>
             <Typography className={classes.instructions}>
 
-            <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+            <Box display="flex" /* flexDirection="column" */ justifyContent="center" alignItems="center">
 
-              <main /* className={classes.mains} */>
-              
-                {getStepContent(activeStep)}
+              <main className={classes.rootForm}>
 
-                  <div>
-                    <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                        Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                    </Button>
-                  </div> 
+                
+                
+                  {getStepContent(activeStep)}
+
+                    
+                  <div className={classes.buttonRoot}>
+                      {activeStep > 0 ? <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                          Back
+                      </Button> : null }
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleNext}
+                        className={classes.button}
+                      >
+                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                      </Button>
+                    </div> 
+                
 
               </main>
+
+              
 
             </Box>
 
@@ -235,5 +267,7 @@ export default function CheckIn() {
   );
 }
 
+
+export default withStyles(styles) (CheckIn); 
    
 
