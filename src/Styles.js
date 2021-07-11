@@ -72,6 +72,13 @@ export const formStyle = (theme) => ({
     marginLeft: theme.spacing(4),
   },
 
+  imges: {
+
+    width: '378px',
+    height: '605px',
+  
+  },
+
   textForm:{
     width: '360px',
     height: '56px',
@@ -86,12 +93,40 @@ export const formStyle = (theme) => ({
     width: '25ch',
   },
 
+  fileForm:{
+    width: '360px',
+    height:' 140px',
+    border: '1px dashed #1A73E8',
+    borderRadius: '16px',
+    marginTop: theme.spacing(8),
+  },
+  fileStyle:{
+    width: '360px',
+    height:' 140px',
+    border: '1px dashed #1A73E8',
+    borderRadius: '16px',
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    alignItem: 'center',
+    justifyContent: 'center',
+  },
+
   errorIcons: {
     display: 'flex',
     justifyContent: 'flex-end',
     marginTop: theme.spacing(2),
     marginLeft: theme.spacing(40),
+  },
+  icoDown: {
+    width: '24px',
+    height:' 16px',
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(2),
   }
+
+  
  
 });
 

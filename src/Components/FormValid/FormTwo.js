@@ -1,82 +1,188 @@
-import React from 'react';
- import { Formik, Form, Field, ErrorMessage } from 'formik';
- import * as Yup from "yup";
- import TextField from '@material-ui/core/TextField';
- import InputAdornment from '@material-ui/core/InputAdornment';
- import { withStyles } from '@material-ui/core/styles';
- import {formStyle as styles} from '../../Styles';
+
+
+import React, {useState} from 'react';
+import { Formik, Form} from 'formik';
+import * as Yup from 'yup';
+
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+import { withStyles } from '@material-ui/core/styles';
+import{ Grid }from '@material-ui/core';
+
+import {formStyle as styles} from '../../Styles';
+
+import { FormikTextField } from 'formik-material-fields';
+
+import errorIcon from '../../image/error.svg';
+
+import imgTwo from '../../image/imgTwo.png'
 
  const SignupSchema = Yup.object().shape({
-   name: Yup.string()
-     .min(2, 'Too Short!')
-     .max(70, 'Too Long!')
-     .required('Required'),
-   email: Yup.string()
-     .email('Invalid email')
-     .required('Required'),
- });
- 
- function FormTwo(styles) {
+      date: Yup.string("Enter a name")
+      .min(2, ' Enter a valid name ')
+      .max(50, ' Enter a valid name ')
+      .required(' Required '),
+
+      sex: Yup.string()
+      .min(2, ' Enter a valid last name ')
+      .max(50, ' Enter a valid last name! ')
+      .required(' Required '),
+
+  }); 
+
   
-  const { classes } = styles;
+  function FormTwo(styles) {
+    
+      const { classes } = styles;
 
-  return(
-   <div className={classes.rootForm}>
+      const currencies = [
+        {
+          value: 'Муж',
+          label: 'Мужской',
+        },
+        {
+          value: 'Жен',
+          label: 'Женский',
+        },
+      ];
 
-     <h1>Signup</h1>
-     
-     <Formik
+      const [currency, setCurrency] = useState('Пол');
+
+      const handleChange = (event) => {
+        setCurrency(event.target.value);
+      };
+
+      
+      return (
+
+    
+
+      <div className= {classes.root}>
+
+        <Grid item md={8}>
+
+          <div>
+
+            <img className= {classes.imges} src = { imgTwo }  alt = "imgTwo"/>
+          
+          </div>
+
+        </Grid>
+
         
-        initialValues={{
-          firstName: '',
-          email: '',
-       }}
-       validationSchema={SignupSchema}
-       onSubmit={values => {
-         // same shape as initial values
-         console.log(values);
-       }}
-     >
 
-       {({ errors, touched }) => (
-         <Form className= {classes.forms}>
-           <Field className={classes.textForm} type="text" name="firstName" label="Имя" variant="filled"  />
-            {errors.firstName && touched.firstName ? (
-             <div>{errors.firstName}</div>
-            ) : null}
-            <ErrorMessage name="firstName" />
-
-            <TextField
-                className={classes.textForm} 
-                name="email" 
-                type="email" 
-                label="Email" 
-                variant="filled"
-                InputProps={{
-                endAdornment:(<InputAdornment position="end">@gmail.com</InputAdornment>)
-                }}
-                />
-                {errors.email && touched.email ? <div>{errors.email}</div> : null}
-              <ErrorMessage name="email" />
-
-            <Field name="name"  />
-            {errors.name && touched.name ? (
-            <div>{errors.name}</div>
-            ) : null}
-            <ErrorMessage name="name" />
-
-            <Field name="email" type="email" />
-            {errors.email && touched.email ? (
-             <div>{errors.email}</div>
-            ) : null}
-            <ErrorMessage name="email" />
+        {/* <Grid item md={6} height={100}> */}
+        <div className= {classes.container}>
+          <h3>Познакомимся поближе!</h3>
+          <Formik
+            initialValues={{
+              date: '',
+              sex: '',
+              text: '',
+              file: '',
               
-          </Form>
-       )}
+            }}
+            validationSchema={SignupSchema}
+            onSubmit={values => {
+              // same shape as initial values
+              console.log(values);
+            }}
+          >
+            {({ errors, touched }) => (
+              <Form className= {classes.forms}>
+                <FormikTextField
+                  className={classes.textForm} 
+                  id="date"
+                  label="Birthday"
+                  name="date" 
+                  type="date"
+                  variant="filled"
+                  InputProps={{
+                    
+                    /* endAdornment:(<InputAdornment position="end"><img className={classes.errorIcons}  src = { icoDate }  alt = "icoDate" /></InputAdornment>) */
 
-     </Formik>
+                  }}
+                />
+                {errors.date &&  touched.date ? (
+                     <div>
+                        <InputAdornment 
+                          position="end">
+                          <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                        </InputAdornment>
+                      </div> 
+                ) : null}
 
-   </div>
-)
-}
-export default withStyles (styles) (FormTwo);
+                <FormikTextField
+                  name="sex"
+                  className={classes.textForm} 
+                  id="filled-select-currency-native"
+                  select
+                  label="Пол"
+                  value={currency}
+                  onChange={handleChange}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  variant="filled"
+                >
+                  {currencies.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </FormikTextField>
+                {errors.sex &&  touched.sex ? (
+                     <div>
+                        <InputAdornment 
+                          position="end">
+                          <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                        </InputAdornment>
+                      </div> 
+                ) : null}
+
+                <FormikTextField
+                    name="text"
+                    className={classes.textForm} 
+                    id="filled-multiline-static"
+                    label="Расскажите немного о себе"
+                    multiline
+                    rows={3}
+                    /* defaultValue="Default Value" */
+                    variant="filled"
+                />
+                 {errors.sex &&  touched.sex ? (
+                     <div>
+                        <InputAdornment 
+                          position="end">
+                          <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                        </InputAdornment>
+                      </div> 
+                ) : null}
+
+                <FormikTextField
+
+                  className={classes.fileForm}
+                  name="file" 
+                  type="file" 
+                  label="Добавьте фото" 
+                  color="secondary"
+                  
+                />
+                 {errors.file &&  touched.file ? (
+                     <div>
+                        <InputAdornment 
+                          position="end">
+                          <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                        </InputAdornment>
+                      </div> 
+                ) : null}
+
+              </Form>
+            )}
+          </Formik>
+        {/* </Grid> */}
+        </div>
+      </div>
+    )} 
+
+    export default withStyles(styles) (FormTwo); 

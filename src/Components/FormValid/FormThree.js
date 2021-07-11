@@ -1,85 +1,103 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import React, { useState } from "react";
+import { Formik, Form} from 'formik';
+import * as Yup from 'yup';
+import { FormikTextField } from 'formik-material-fields';
+import {formStyle as styles} from '../../Styles';
+import { withStyles } from '@material-ui/core/styles';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+import errorIcon from '../../image/error.svg';
+import icoDown from '../../image/icoDown.svg';
+
+const SignupSchema = Yup.object().shape({
+  file: Yup.string("Enter a name")
+    .min(2, ' Enter a valid name ')
+    .max(50, ' Enter a valid name ')
+    .required(' Required '),
+  }); 
+
+ const FormThree = (styles) => {
+  const { classes } = styles;
+  const [drag, setDrag] = useState(false)
 
 
-export const Form = props => {
-  const {
-    values: { name, email, password, confirmPassword },
-    errors,
-    touched,
-    handleChange,
-    isValid,
-    setFieldTouched
-  } = props;
- 
-  const change = (name, e) => {
-    e.persist();
-    handleChange(e);
-    setFieldTouched(name, true, false);
-  };
+  function dragStartHandler(e) {
+    e.preventDefault()
+    setDrag(true)
+  }
+  function dragLeaveHandler(e) {
+    e.preventDefault()
+    setDrag(false)
+  }
+  function onDropHandler(e) {
+    e.preventDefault()
+    let files = [...e.dataTransfer.files]
+    console.log(files)
+
+    const formData = new FormData()
+    formData.append('file', files[0])
+    
+
+    setDrag(false)
+  }
+
   return (
-    <form
-      onSubmit={() => {
-        alert("submitted");
-      }}
-    >
-      <TextField
-        id="name"
-        name="name"
-        helperText={touched.name ? errors.name : ""}
-        error={touched.name && Boolean(errors.name)}
-        label="Name"
-        value={name}
-        onChange={change.bind(null, "name")}
-        fullWidth
- 
-      />
-      <TextField
-        id="email"
-        name="email"
-        helperText={touched.email ? errors.email : ""}
-        error={touched.email && Boolean(errors.email)}
-        label="Email"
-        fullWidth
-        value={email}
-        onChange={change.bind(null, "email")}
- 
-      />
-      <TextField
-        id="password"
-        name="password"
-        helperText={touched.password ? errors.password : ""}
-        error={touched.password && Boolean(errors.password)}
-        label="Password"
-        fullWidth
-        type="password"
-        value={password}
-        onChange={change.bind(null, "password")}
- 
-      />
-      <TextField
-        id="confirmPassword"
-        name="confirmPassword"
-        helperText={touched.confirmPassword ? errors.confirmPassword : ""}
-        error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-        label="Confirm Password"
-        fullWidth
-        type="password"
-        value={confirmPassword}
-        onChange={change.bind(null, "confirmPassword")}
- 
-      />
-      <Button
-        type="submit"
-        fullWidth
-        variant="raised"
-        color="primary"
-        disabled={!isValid}
-      >
-        Submit
-      </Button>
-    </form>
+    
+    <Formik
+            initialValues={{
+              
+              file: '',
+              
+            }}
+            validationSchema={SignupSchema}
+            onSubmit={values => {
+              // same shape as initial values
+              console.log(values);
+            }}
+          >
+            {({ errors, touched }) => (
+              <Form className= {classes.forms}>
+
+              
+    <div className={classes.fileStyle}>
+        <img className={classes.icoDown}  src = { icoDown }  alt = "icoDown" />
+        {drag
+        
+        ? <div
+            onDragStart={e => dragStartHandler(e)}
+            onDragLeave={e => dragLeaveHandler(e)}
+            onDragOver={e => dragStartHandler(e)}
+            onDrop={e => onDropHandler(e)}
+          >Отпустите фото сюда или</div>    
+        : <div
+            onDragStart={e => dragStartHandler(e)}
+            onDragLeave={e => dragLeaveHandler(e)}
+            onDragOver={e => dragStartHandler(e)}
+          >Перетащите фото сюда или </div>
+        }
+        
+        
+        <FormikTextField
+          name="file" 
+          type="file" 
+          
+          color="secondary"
+        />
+        
+        
+        {errors.file &&  touched.file ? (
+                     <div>
+                        <InputAdornment 
+                          position="end">
+                          <img className={classes.errorIcons}  src = { errorIcon }  alt = "errorIcon" />
+                        </InputAdornment>
+                      </div> 
+                ) : null}
+      
+    </div>
+    </Form>
+    )}
+    </Formik>
   );
  };
- 
+ export default withStyles(styles) (FormThree); 

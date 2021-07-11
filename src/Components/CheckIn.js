@@ -14,7 +14,7 @@ import personCheck from '../image/personCheck.svg'
 import {useStyles as styles} from '../Styles';
 import FormOne from './FormValid/FormOne'
 import FormTwo from './FormValid/FormTwo'
-import FormThreeValid from './FormValid/FormThreeValid'
+import FormThree from './FormValid/FormThree'
 
 
 
@@ -127,7 +127,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
 
-  button: {
+  buttonRight: {
+    marginRight: theme.spacing(25),
+    marginBottom: theme.spacing(1),
+  },
+  buttonLeft: {
     marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -173,7 +177,7 @@ function getStepContent(step) {
     case 1:
       return < FormTwo />;
     case 2:
-      return < FormThreeValid />;
+      return < FormThree/>;
     default:
       return 'Unknown step';
   }
@@ -218,16 +222,16 @@ function CheckIn() {
               All steps completed - you&apos;re finished
             </Typography>
             <Button onClick={handleReset} className={classes.button}>
-              Reset
+              Закрыть
             </Button>
           </div>
         ) : (
-          <div>
-            <Typography className={classes.instructions}>
+          <div>  
+            {/* <Typography className={classes.instructions}> */}
 
             <Box display="flex" /* flexDirection="column" */ justifyContent="center" alignItems="center">
 
-              <main className={classes.rootForm}>
+              <div className={classes.rootForm}>
 
                 
                 
@@ -235,21 +239,27 @@ function CheckIn() {
 
                     
                   <div className={classes.buttonRoot}>
-                      {activeStep > 0 ? <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                          Back
-                      </Button> : null }
+                      {activeStep > 0 ? 
+                      <Button 
+                        disabled={activeStep === 0} 
+                        onClick={handleBack} 
+                        className={classes.buttonRight}>
+                          Назад
+                      </Button> 
+                      : null }
+
                       <Button
                         variant="contained"
                         color="primary"
                         onClick={handleNext}
-                        className={classes.button}
+                        className={classes.buttonLeft}
                       >
-                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                        {activeStep === steps.length - 1 ? 'Конец' : 'Дальше'}
                       </Button>
-                    </div> 
+                  </div> 
                 
 
-              </main>
+              </div>
 
               
 
@@ -257,7 +267,7 @@ function CheckIn() {
 
               
               
-            </Typography>
+            {/* </Typography> */}
 
             
           </div>
