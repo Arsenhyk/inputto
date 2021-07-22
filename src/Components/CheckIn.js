@@ -15,6 +15,7 @@ import {useStyles as styles} from '../Styles';
 import FormOne from './FormValid/FormOne'
 import FormTwo from './FormValid/FormTwo'
 import FormThree from './FormValid/FormThree'
+import Result from './FormValid/result'
 
 
 
@@ -179,7 +180,7 @@ function getStepContent(step) {
     case 2:
       return < FormThree/>;
     default:
-      return 'Unknown step';
+      return ;
   }
 }
 
@@ -218,9 +219,11 @@ function CheckIn() {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>
+
+            < Result />
+            {/* <Typography className={classes.instructions}>
               All steps completed - you&apos;re finished
-            </Typography>
+            </Typography> */}
             <Button onClick={handleReset} className={classes.button}>
               Закрыть
             </Button>

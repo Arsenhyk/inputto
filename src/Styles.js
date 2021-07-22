@@ -101,14 +101,39 @@ export const formStyle = (theme) => ({
     marginTop: theme.spacing(8),
   },
   fileStyle:{
+    display: 'block',
     width: '360px',
     height:' 140px',
     border: '1px dashed #1A73E8',
     borderRadius: '16px',
     marginTop: theme.spacing(8),
-    display: 'flex',
     alignItem: 'center',
+    justifyContent: 'space-between',
+    
+  },
+
+  textFile:{
+    fontSize: '16px',
+    lineHeight: '24px',
+    display: 'flex',
     justifyContent: 'center',
+    marginTop: theme.spacing(2), 
+    margin:'0',
+    padding: '0',
+    alignItems: 'flex-end',
+    textAlign: 'center',
+  },
+
+  textFileButton:{
+    color: '#1A73E8',
+    fontSize: '16px',
+    lineHeight: '24px',
+    display: 'flex',
+    justifyContent: 'center',
+    margin:'0',
+    padding: '0',  
+    /* alignItems: 'flex-end', */
+    textAlign: 'center',
   },
 
   errorIcons: {
@@ -122,9 +147,13 @@ export const formStyle = (theme) => ({
     height:' 16px',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'flex-end',
+    textAlign: 'center',
     marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-  }
+    marginLeft: theme.spacing(21),
+  },
+
+  
 
   
  
