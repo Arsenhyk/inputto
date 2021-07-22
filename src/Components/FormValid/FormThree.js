@@ -89,7 +89,7 @@ import icoDown from '../../image/icoDown.svg';
                           <img className={classes.icoDown}  src = { icoDown }  alt = "icoDown" />
                           {drag
                           
-                          ? <InputLabel htmlFor="import-button" style={sty.importLabel}>
+                           ?  <div htmlFor="import-button" style={sty.importLabel}>
                             <Input
                               type="file"
                               name="file" 
@@ -121,8 +121,8 @@ import icoDown from '../../image/icoDown.svg';
                                 <br />или
                               </p>
                              
-                            </InputLabel>   
-                          :<InputLabel htmlFor="import-button" style={sty.importLabel}> 
+                            </div>   
+                          :<div htmlFor="import-button" style={sty.importLabel}> 
                               <Input
 
                                   type="file"
@@ -153,7 +153,7 @@ import icoDown from '../../image/icoDown.svg';
                             <br />или
                           </p>
        
-                          </InputLabel> 
+                          </div> 
                           }         
                           
                           <InputLabel htmlFor="import-button" style={sty.importLabel}>
@@ -174,7 +174,7 @@ import icoDown from '../../image/icoDown.svg';
                                   }
                                 }}
                                 
-                                /* style={sty.hidden}  */   
+                             style={sty.hidden}  
                             />
                             {errors.file &&  touched.file ? (
                                       <div>
